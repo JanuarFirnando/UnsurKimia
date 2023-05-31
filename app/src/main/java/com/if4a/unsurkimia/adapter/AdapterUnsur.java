@@ -1,6 +1,8 @@
 package com.if4a.unsurkimia.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.if4a.unsurkimia.activity.DetailActivity;
 import com.if4a.unsurkimia.model.ModelUnsur;
 import com.if4a.unsurkimia.R;
 
@@ -56,6 +59,22 @@ public class AdapterUnsur extends RecyclerView.Adapter<AdapterUnsur.VHUnsur> {
             MassaAtom = itemView.findViewById(R.id.tv_MassaAtom);
             NomorAtom = itemView.findViewById(R.id.tv_NomorAtom);
             Keterangan = itemView.findViewById(R.id.tv_Keterangan);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent pindah = new Intent(ctx, DetailActivity.class);
+                    pindah.putExtra("Xid", id.getText().toString());
+                    pindah.putExtra("Xsimbol", SimbolAtom.getText().toString());
+                    pindah.putExtra("Xnama", NamaAtom.getText().toString());
+                    pindah.putExtra("Xmassa", MassaAtom.getText().toString());
+                    pindah.putExtra("Xnomor", NomorAtom.getText().toString());
+                    pindah.putExtra("Xketerangan", Keterangan.getText().toString());
+                    ctx.startActivity(pindah);
+                }
+            });
+
+
         }
     }
 }

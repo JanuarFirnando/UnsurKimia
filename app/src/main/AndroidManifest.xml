@@ -15,8 +15,13 @@
         android:theme="@style/Theme.UnsurKimia"
         tools:targetApi="31">
         <activity
+            android:name=".activity.DetailActivity"
+            android:exported="false"
+            android:parentActivityName=".activity.MainActivity"/>
+        <activity
             android:name=".activity.TambahActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".activity.MainActivity"/>
         <activity
             android:name=".activity.MainActivity"
             android:exported="true">
