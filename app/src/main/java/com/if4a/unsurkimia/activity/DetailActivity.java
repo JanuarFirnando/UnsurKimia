@@ -21,7 +21,7 @@ import retrofit2.Response;
 public class DetailActivity extends AppCompatActivity {
     private TextView tv_simbol, tv_nama, tv_massa, tv_nomor, tv_keterangan;
     private String Yid, Ysimbol, Ynama,Ymassa , Ynomor, Yketerangan;
-    private Button btn_ubah, btn_hapus;
+    private Button btn_ubah, btn_hapus, btn_kembali;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +42,7 @@ public class DetailActivity extends AppCompatActivity {
         tv_keterangan = findViewById(R.id.tv_keterangan);
         btn_ubah = findViewById(R.id.btn_ubah);
         btn_hapus = findViewById(R.id.btn_hapus);
+        btn_kembali = findViewById(R.id.btn_kembali);
 
         tv_simbol.setText(Ysimbol);
         tv_nama.setText(Ynama);
@@ -54,6 +55,27 @@ public class DetailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 HapusKuliner();
 
+            }
+        });
+        btn_kembali.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(DetailActivity.this, MainActivity.class));
+                finish();
+            }
+        });
+
+        btn_ubah.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent ganti = new Intent(DetailActivity.this, UbahActivity.class);
+                ganti.putExtra("Yid", Yid);
+                ganti.putExtra("Ynama", Ynama);
+                ganti.putExtra("Ysimbol", Ysimbol);
+                ganti.putExtra("Ymassa", Ymassa);
+                ganti.putExtra("Ynomor", Ynomor);
+                ganti.putExtra("Yketerangan", Yketerangan);
+                startActivity(ganti);
             }
         });
     }

@@ -21,6 +21,17 @@ public interface APIRequestData {
             @Field("NomorAtom") String NomorAtom,
             @Field("Keterangan") String Keterangan
     );
+
+    @FormUrlEncoded
+    @POST("update_tugasproject.php")
+    Call<ModelResponse> ardUpdate(
+            @Field("id") String id,
+            @Field("SimbolAtom") String SimbolAtom,
+            @Field("NamaAtom") String NamaAtom,
+            @Field("MassaAtom") String MassaAtom,
+            @Field("NomorAtom") String NomorAtom,
+            @Field("Keterangan") String Keterangan
+    );
     @FormUrlEncoded
     @POST("delete_tugasproject.php")
     Call<ModelResponse> ardDelete(

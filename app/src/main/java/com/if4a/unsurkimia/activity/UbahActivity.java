@@ -18,24 +18,39 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TambahActivity extends AppCompatActivity {
+public class UbahActivity extends AppCompatActivity {
+    private String Zid,Zsimbol, Znama, Zmassa, Znomor, Zketerangan;
+    private String  simbol, nama, massa, nomor, keterangan;
     private EditText et_simbol, et_nama, et_massa, et_nomor, et_keterangan;
-    private String simbol, nama, massa, nomor, keterangan;
-    private Button btn_tambah, btn_kembali;
+    private Button btn_ubah, btn_kembali;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tambah);
+        setContentView(R.layout.activity_ubah);
         et_simbol = findViewById(R.id.et_simbol);
         et_nama = findViewById(R.id.et_nama);
         et_massa = findViewById(R.id.et_massa);
         et_nomor = findViewById(R.id.et_nomor);
         et_keterangan = findViewById(R.id.et_keterangan);
-        btn_tambah = findViewById(R.id.btn_tambah);
+        btn_ubah = findViewById(R.id.btn_ubah);
         btn_kembali = findViewById(R.id.btn_kembali);
 
-        btn_tambah.setOnClickListener(new View.OnClickListener() {
+        Intent ambil = getIntent();
+        Zid = ambil.getStringExtra("Yid");
+        Zsimbol = ambil.getStringExtra("Ysimbol");
+        Znama = ambil.getStringExtra("Ynama");
+        Zmassa = ambil.getStringExtra("Ymassa");
+        Znomor = ambil.getStringExtra("Ynomor");
+        Zketerangan = ambil.getStringExtra("Yketerangan");
+
+        et_simbol.setText(Zsimbol);
+        et_nama.setText(Znama);
+        et_massa.setText(Zmassa);
+        et_nomor.setText(Znomor);
+        et_keterangan.setText(Zketerangan);
+
+        btn_ubah.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 simbol = et_simbol.getText().toString();
@@ -58,39 +73,35 @@ public class TambahActivity extends AppCompatActivity {
                 }
                 if (keterangan.trim().equals("")) {
                     et_keterangan.setError("Keterangan Harus Diisi");
-                } else {
-                    tambahUnsur();
+                }
+                else {
+                    ubahKuliner();
                 }
             }
         });
-
         btn_kembali.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(TambahActivity.this, MainActivity.class));
-                finish();
+                startActivity(new Intent(UbahActivity.this, MainActivity.class));
             }
         });
     }
-
-
-
-    private void tambahUnsur() {
+    private void ubahKuliner(){
         APIRequestData ARD = RetroServer.konekRetrofit().create(APIRequestData.class);
-        Call<ModelResponse> proses = ARD.ardCreate(simbol, nama, massa, nomor, keterangan);
+        Call<ModelResponse> proses = ARD.ardUpdate(Zid, simbol, nama, massa, nomor, keterangan);
 
         proses.enqueue(new Callback<ModelResponse>() {
             @Override
             public void onResponse(Call<ModelResponse> call, Response<ModelResponse> response) {
                 String kode = response.body().getKode();
                 String pesan = response.body().getPesan();
-                Toast.makeText(TambahActivity.this, "kode : " + kode + " pesan : " + pesan, Toast.LENGTH_SHORT).show();
+                Toast.makeText(UbahActivity.this, "Kode : " + kode + ", Pesan : " + pesan, Toast.LENGTH_SHORT).show();
                 finish();
             }
 
             @Override
             public void onFailure(Call<ModelResponse> call, Throwable t) {
-                Toast.makeText(TambahActivity.this, "Gagal Menghubungi Server", Toast.LENGTH_SHORT).show();
+                Toast.makeText(UbahActivity.this, "Gagal Menghubungi Server", Toast.LENGTH_SHORT).show();
             }
         });
     }
