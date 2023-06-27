@@ -9,11 +9,11 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface APIRequestData {
-    @GET("retrieve_tugasproject.php")
+    @GET("retrieve.php")
     Call<ModelResponse> ardRetrieve();
 
     @FormUrlEncoded
-    @POST("create_tugasproject.php")
+    @POST("create.php")
     Call<ModelResponse> ardCreate(
             @Field("SimbolAtom") String SimbolAtom,
             @Field("NamaAtom") String NamaAtom,
@@ -23,7 +23,7 @@ public interface APIRequestData {
     );
 
     @FormUrlEncoded
-    @POST("update_tugasproject.php")
+    @POST("update.php")
     Call<ModelResponse> ardUpdate(
             @Field("id") String id,
             @Field("SimbolAtom") String SimbolAtom,
@@ -33,7 +33,7 @@ public interface APIRequestData {
             @Field("Keterangan") String Keterangan
     );
     @FormUrlEncoded
-    @POST("delete_tugasproject.php")
+    @POST("delete.php")
     Call<ModelResponse> ardDelete(
       @Field("id") String id
     );
